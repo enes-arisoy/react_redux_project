@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: [],
+  data: JSON.parse(localStorage.getItem("productData")) || [],
   keyword: "",
 };
 
@@ -10,7 +10,8 @@ export const dataSlice = createSlice({
   initialState,
   reducers: {
     createDataFunc: (state, action) => {
-      state.data = [...state.data, action.payload];
+      state.data.push(action.payload);
+      localStorage.setItem("productData", JSON.stringify(state.data));
     },
 
     sortingDataFunc: (state, action) => {
@@ -32,11 +33,13 @@ export const dataSlice = createSlice({
       state.data = [...state.data.filter((item) => item.id !== action.payload)];
     },
     updateDataFunc: (state, action) => {
-      state.data = [
-        ...state.data.map((item) =>
-          item.id === action.payload.id ? { ...item, ...action.payload } : item
-        ),
-      ];
+      const index = state.data.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.data[index] = action.payload;
+        localStorage.setItem("productData", JSON.stringify(state.data));
+      }
     },
   },
 });

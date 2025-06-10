@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Product = () => {
   const { modal } = useSelector((state) => state.modal);
+  
   const { data, keyword } = useSelector((state) => state.data);
 
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const Product = () => {
 
   let loc = location.search.split("=")[1];
   useEffect(() => {
+    
     if (loc) {
       setProductInfo(data.find((item) => item.id === Number(loc)));
     } else {
