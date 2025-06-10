@@ -36,8 +36,15 @@ const Product = () => {
   useEffect(() => {
     if (loc) {
       setProductInfo(data.find((item) => item.id === Number(loc)));
+    } else {
+      setProductInfo({
+        name: "",
+        price: "",
+        url: "url",
+        id: "id",
+      });
     }
-  }, [loc]);
+  }, [loc, data]);
 
   const buttonFunc = () => {
     dispatch(createDataFunc({ ...productInfo, id: data.length + 1 }));
