@@ -3,14 +3,19 @@ import { BsThreeDots } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { deleteDataFunc, updateDataFunc } from "../Redux/dataSlice";
 import { modalFunc } from "../Redux/modalSlice";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ item }) => {
   const [openEdit, setOpenEdit] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const updateFunc = () => {
     dispatch(modalFunc());
-    dispatch(updateDataFunc(item));
+    setOpenEdit(false);
+    navigate(`/?update=${item.id}`);
+   dispatch(updateDataFunc(item));
   };
 
   return (
